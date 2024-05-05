@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       dialect: org.hibernate.dialect.MySQL8Dialect
@@ -16,7 +16,9 @@ spring:
     jdbc:
       initialize-schema: always
     job:
-      enabled: true # ?? ???? X
+      enabled: false # ?? ???? X
+#  main:
+#    allow-bean-definition-overriding: true
 
 server:
   port: 8282
