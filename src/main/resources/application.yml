@@ -17,6 +17,7 @@ spring:
       initialize-schema: always
     job:
       enabled: true # ?? ???? X
+      name: apiJob
 
 server:
   port: 8282
