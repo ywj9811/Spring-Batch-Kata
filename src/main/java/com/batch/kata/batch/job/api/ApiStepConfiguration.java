@@ -12,6 +12,9 @@ import com.batch.kata.batch.domain.ApiRequest;
 import com.batch.kata.batch.domain.Product;
 import com.batch.kata.batch.domain.ProductDto;
 import com.batch.kata.batch.partition.ProductPartitioner;
+import com.batch.kata.service.ApiService1;
+import com.batch.kata.service.ApiService2;
+import com.batch.kata.service.ApiService3;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.partition.support.Partitioner;
@@ -44,6 +47,9 @@ public class ApiStepConfiguration {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
     private final DataSource dataSource;
+    private final ApiService1 apiService1;
+    private final ApiService2 apiService2;
+    private final ApiService3 apiService3;
 
     private static int CHUNK_SIZE = 10;
 
@@ -73,9 +79,9 @@ public class ApiStepConfiguration {
         ClassifierCompositeItemWriter<ApiRequest> writer
                 = new ClassifierCompositeItemWriter<>();
         Map<String, ItemWriter<ApiRequest>> writerMap = new HashMap<>();
-        writerMap.put("1", new ApiItemWriter1());
-        writerMap.put("2", new ApiItemWriter2());
-        writerMap.put("3", new ApiItemWriter3());
+        writerMap.put("1", new ApiItemWriter1(apiService1));
+        writerMap.put("2", new ApiItemWriter2(apiService2));
+        writerMap.put("3", new ApiItemWriter3(apiService3));
 
         WriterClassifier<ApiRequest, ItemWriter<? super ApiRequest>> classifier = new WriterClassifier<>(writerMap);
 
